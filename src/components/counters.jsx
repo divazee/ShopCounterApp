@@ -2,47 +2,33 @@ import React, { Component } from 'react';
 import Counter from './counter';
 
 class Counters extends Component {
-    state = {
-        counters: [
-            {id: 1, value: 4},
-            {id: 2, value: 0},
-            {id: 3, value: 0},
-            {id: 4, value: 0}
-        ]
-    }
-
-    handleDelete = (counterID) => {
-        console.log("deleted!", counterID)
-        const newCounters = this.state.counters.filter(c => c.id !== counterID)
-        this.setState({ counters: newCounters })
-    }
-
-    handleReset = () => {
-        
-    }
-
-    render() { 
-        return ( 
+    render() {
+        const { onReset, onIncrement, onDelete, counters } = this.props
+        // console.log(this.props.counters)
+        return (
             <div>
                 {/* <Counter /> */}
-                <button 
+                <button
                     className="btn btn-secondary m-2"
-                    onClick={ this.handleReset }
+                    onClick={onReset}
                 >
                     Reset
                 </button>
 
-                {this.state.counters.map(counter => 
-                    <Counter 
-                        key={counter.id} 
-                        counter={ counter }
-                        // onDelete={ () => this.handleDelete(counter.id)}
-                        onDelete={ () => this.handleDelete( counter.id ) }
-                    />
+                {counters.map(counter =>
+                    <Counter
+                        key={counter.id}
+                        counter={counter}
+                        onIncrement={onIncrement}
+                        onDelete={onDelete}
+                       // onDelete={ () => this.handleDelete(counter.id)}
+                    >
+                        Counter #{counter.id}
+                    </Counter>
                 )}
             </div>
-         );
+        );
     }
 }
- 
+
 export default Counters;
